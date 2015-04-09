@@ -4,34 +4,27 @@ var SongQueue = Songs.extend({
   model: SongModel,
 
   initialize: function(){
-
-    this.on('ended', this.playNext);
-
-    this.on('dequeue', function(song){
-      this.remove(song)
+    this.on('ended', function(song){
+      this.playNext(song);
     });
-
   },
 
   playFirst: function(){
     this.at(0).play();
   },
 
-  playNext: function(){
-    this.remove(this.at(0));
+  playNext: function(song){
+    debugger;
+    this.remove(song);
     if(this.length > 0){
       this.playFirst();
+    }
+  },
+
+  dequeueSong: function(song){
+    if(this.length > 1){
+      this.remove(song);
     }
   }
 
 });
-
-
-
-
-// this.on('enqueue', function(song){
-//   this.add(song);
-//   if(this.length === 1){
-//     this.playFirst();
-//   }
-// });

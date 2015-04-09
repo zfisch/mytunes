@@ -12,6 +12,7 @@ var AppModel = Backbone.Model.extend({
     getting called from the window (unless we override it, as we do here). */
 
 
+
     params.library.on('play', function(song){
       this.set('currentSong', song);
     }, this);
@@ -24,11 +25,11 @@ var AppModel = Backbone.Model.extend({
     }, this);
 
     params.library.on('dequeue', function(song){
-      songQueue.shift();
+      this.get('songQueue').dequeueSong(song);
     }, this);
 
     params.library.on('ended', function(song){
-      songQueue.shift();
+      this.get('songQueue').shift();
       if (this.get('songQueue').length === 1){
         this.get('songQueue').playFirst();
       }
